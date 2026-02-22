@@ -40,4 +40,5 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 0;
+    gap: 24px;
   }

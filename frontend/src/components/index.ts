@@ -1,1 +1,2 @@
-export { default as Navbar } from './Navbar/ui/Navbar'
+export { Navbar } from './Navbar'
+export { SearchBar } from './SearchBar'
