@@ -1,0 +1,1 @@
+export { getCards } from './tcgdex'

@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import CardsPage from "./pages/CardsPage"
-import DecksPage from "./pages/DecksPage"
-import DeckDetailPage from "./pages/DeckDetailPage"
+import {Navbar} from "./components"
+import {CardsPage, DecksPage, DeckDetailPage} from "./pages"
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<CardsPage />} />
         <Route path="/decks" element={<DecksPage />} />

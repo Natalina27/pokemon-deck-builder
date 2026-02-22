@@ -9,24 +9,24 @@ export class PokemonCard extends LitElement {
     static styles = css`
         :host {
             display: block;
-            width: 200px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
+        :host:hover {
+            transform: scale(1.05);
+        }
+
         img {
             width: 100%;
-        }
-        p {
-            font-weight: bold;
+            height: auto;
+            display: block;
         }
     `
   render() {
-    console.log('render called', this.name, this.image)
     return html`
     <img src=${this.image} alt=${this.name} />
-    <p>${this.name}</p>
     `
   }
 }
