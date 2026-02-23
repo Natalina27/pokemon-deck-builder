@@ -9,9 +9,9 @@ const CardsPage = () => {
   const { cards, loading, error } = useCards()
   const [search, setSearch] = useState('')
 
-const filteredCards = cards.filter(card =>
-  card.name.toLowerCase().includes(search.toLowerCase())
-)
+  const filteredCards = cards.filter((card) =>
+    card.name.toLowerCase().includes(search.toLowerCase())
+  )
 
   if (loading) return <div>Loading...</div>
   if (error) return <p>Error: {error.message}</p>
@@ -21,17 +21,17 @@ const filteredCards = cards.filter(card =>
       <SearchBar value={search} onChange={setSearch} />
       <div className={styles.grid}>
         {filteredCards.map((card) => (
-          <pokemon-card 
-            key={card.id} 
-            name={card.name} 
-            image={`${card.image}/high.webp`} 
-            style={{display: 'block'}}
+          <pokemon-card
+            key={card.id}
+            name={card.name}
+            image={`${card.image}/high.webp`}
+            style={{ display: 'block' }}
             className={styles.card}
           />
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CardsPage;
+export default CardsPage

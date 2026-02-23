@@ -1,6 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import {Navbar} from "./components"
-import {CardsPage, DecksPage, DeckDetailPage} from "./pages"
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Navbar } from './components'
+import { CardsPage, DecksPage, DeckDetailPage } from './pages'
 
 function App() {
   return (
