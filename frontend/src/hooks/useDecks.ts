@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getDecks, createDeck, deleteDeck } from '../api'
+import { getDecks, createDeck, deleteDeck, renameDeck } from '../api'
 import type { Deck } from '../types'
 
 export function useDecks() {
@@ -40,5 +40,13 @@ export function useDecks() {
     }
   }
 
-  return { decks, loading, error, handleCreate, handleDelete }
+  const handleRename = async (id: number, name: string) => {
+    if (decks.some((deck) => deck.name.toLowerCase() === name.toLowerCase() && deck.id !== id)) {
+      throw new Error('A deck with this name already exists')
+    }
+    await renameDeck(id, name)
+    setDecks((prev) => prev.map((deck) => deck.id === id ? { ...deck, name } : deck))
+  }
+
+  return { decks, loading, error, handleCreate, handleDelete, handleRename }
 }

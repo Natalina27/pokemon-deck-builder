@@ -67,4 +67,13 @@ export const addCardToDeck = async (deckId: number, cardId: string): Promise<voi
       body: JSON.stringify({ card_id: cardId, quantity: 1 })
     })
     if (!response.ok) throw new Error('Failed to add card to deck')
-  }
+}
+
+export const renameDeck = async (id: number, name: string): Promise<void> => {
+    const response = await fetch(`${BASE_URL}/decks/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    })
+    if (!response.ok) throw new Error('Failed to rename deck')
+}

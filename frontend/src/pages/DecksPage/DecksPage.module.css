@@ -35,19 +35,40 @@
   border-radius: 8px;
   margin-bottom: 12px;
 }
-.deck button {
-  background: #ffcb05;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: bold;
-  cursor: pointer;
-  align-self: flex-end;
+
+.actions {
+  display: flex;
+  gap: 8px;
 }
 
-.deck button:hover {
-  background: #e6b800;
+.editButton {
+  background: transparent;
+  color: #ffcb05;
+  border: 1px solid #ffcb05;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  background: #ffcb05;
+  color: #000;
+}
+
+.deleteButton {
+  background: transparent;
+  color: #e84040;
+  border: 1px solid #e84040;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background: #e84040;
+  color: white;
 }
 
 .error {

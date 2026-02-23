@@ -53,6 +53,23 @@ export const deckRoutes = async (fastify: FastifyInstance) => {
     return { success: true }
   })
 
+  fastify.patch<{ Params: { id: string }; Body: { name: string } }>(
+    '/decks/:id',
+    async (request, reply) => {
+      const { id } = request.params
+      const { name } = request.body
+  
+      const deck = db.prepare('SELECT * FROM decks WHERE id = ?').get(id)
+      if (!deck) {
+        return reply.status(404).send({ error: 'Deck not found' })
+      }
+  
+      db.prepare('UPDATE decks SET name = ? WHERE id = ?').run(name, id)
+  
+      return { id: Number(id), name }
+    }
+  )
+
   fastify.post<{ Params: { id: string }; Body: { card_id: string; quantity: number } }>(
     '/decks/:id/cards',
     async (request) => {

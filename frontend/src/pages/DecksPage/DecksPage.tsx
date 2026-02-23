@@ -5,10 +5,11 @@ import { Modal } from '../../components'
 import styles from './DecksPage.module.css'
 
 const DecksPage = () => {
-  const { decks, loading, error, handleDelete, handleCreate } = useDecks()
+  const { decks, loading, error, handleDelete, handleCreate, handleRename } = useDecks()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [deckName, setDeckName] = useState('')
   const [modalError, setModalError] = useState<string | null>(null)
+  const [editingDeck, setEditingDeck] = useState<{ id: number; name: string } | null>(null)
 
   const onCreateDeck = async () => {
     if (!deckName.trim()) return
@@ -18,9 +19,18 @@ const DecksPage = () => {
       setDeckName('')
       setIsModalOpen(false)
     } catch (err) {
-      setModalError(
-        err instanceof Error ? err.message : 'Failed to create deck'
-      )
+      setModalError(err instanceof Error ? err.message : 'Failed to create deck')
+    }
+  }
+
+  const onRenameDeck = async () => {
+    if (!editingDeck || !editingDeck.name.trim()) return
+    setModalError(null)
+    try {
+      await handleRename(editingDeck.id, editingDeck.name)
+      setEditingDeck(null)
+    } catch (err) {
+      setModalError(err instanceof Error ? err.message : 'Failed to rename deck')
     }
   }
 
@@ -43,7 +53,20 @@ const DecksPage = () => {
           <Link to={`/decks/${deck.id}`} className={styles.deckLink}>
             {deck.name}
           </Link>
-          <button onClick={() => handleDelete(deck.id)}>Delete</button>
+          <div className={styles.actions}>
+            <button
+              className={styles.editButton}
+              onClick={() => { setEditingDeck({ id: deck.id, name: deck.name }); setModalError(null) }}
+            >
+              Rename
+            </button>
+            <button
+              className={styles.deleteButton}
+              onClick={() => handleDelete(deck.id)}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       ))}
 
@@ -57,6 +80,18 @@ const DecksPage = () => {
           onChange={(e) => setDeckName(e.target.value)}
         />
         <button onClick={onCreateDeck}>Create</button>
+      </Modal>
+
+      <Modal isOpen={!!editingDeck} onClose={() => setEditingDeck(null)}>
+        <h2>Rename Deck</h2>
+        {modalError && <p className={styles.error}>{modalError}</p>}
+        <input
+          type="text"
+          placeholder="New deck name..."
+          value={editingDeck?.name ?? ''}
+          onChange={(e) => setEditingDeck(prev => prev ? { ...prev, name: e.target.value } : null)}
+        />
+        <button onClick={onRenameDeck}>Save</button>
       </Modal>
     </div>
   )
