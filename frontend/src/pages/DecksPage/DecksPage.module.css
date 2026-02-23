@@ -54,3 +54,13 @@
   color: #e84040;
   font-size: 13px;
 }
+
+.deckLink {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.deckLink:hover {
+  color: #ffcb05;
+}

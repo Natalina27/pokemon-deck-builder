@@ -3,6 +3,7 @@ export interface CardBrief {
   name: string
   image: string
   localId: string
+  quantity?: number
 }
 
 export interface Card {

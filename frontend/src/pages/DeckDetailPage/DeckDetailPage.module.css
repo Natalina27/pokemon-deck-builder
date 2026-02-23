@@ -1,0 +1,48 @@
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  .section {
+    margin-top: 32px;
+  }
+  
+  .section h2 {
+    margin-bottom: 16px;
+    color: #ffcb05;
+  }
+  
+  .deckCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .cardWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .addButton {
+    background: #ffcb05;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .addButton:hover {
+    background: #e6b800;
+  }

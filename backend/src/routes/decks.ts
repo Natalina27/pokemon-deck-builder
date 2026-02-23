@@ -52,4 +52,19 @@ export const deckRoutes = async (fastify: FastifyInstance) => {
 
     return { success: true }
   })
+
+  fastify.post<{ Params: { id: string }; Body: { card_id: string; quantity: number } }>(
+    '/decks/:id/cards',
+    async (request) => {
+      const { id } = request.params
+      const { card_id, quantity } = request.body
+  
+      const insertCard = db.prepare(
+        'INSERT INTO deck_cards (deck_id, card_id, quantity) VALUES (?, ?, ?)'
+      )
+      insertCard.run(id, card_id, quantity)
+  
+      return { success: true }
+    }
+  )
 }

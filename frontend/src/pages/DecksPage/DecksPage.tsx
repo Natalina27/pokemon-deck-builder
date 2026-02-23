@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useDecks } from '../../hooks'
 import { Modal } from '../../components'
 import styles from './DecksPage.module.css'
@@ -36,9 +37,12 @@ const DecksPage = () => {
       </div>
 
       {decks.length === 0 && <p>No decks yet</p>}
-      {decks.map((deck) => (
+
+      {decks.map(deck => (
         <div key={deck.id} className={styles.deck}>
-          <span>{deck.name}</span>
+          <Link to={`/decks/${deck.id}`} className={styles.deckLink}>
+            {deck.name}
+          </Link>
           <button onClick={() => handleDelete(deck.id)}>Delete</button>
         </div>
       ))}
