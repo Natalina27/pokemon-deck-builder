@@ -1,10 +1,11 @@
 import { LitElement, html, css } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 
 @customElement('pokemon-card')
 export class PokemonCard extends LitElement {
   @property({ type: String }) name = ''
   @property({ type: String }) image = ''
+  @state() private imageLoaded = false
 
   static styles = css`
     :host {
@@ -22,10 +23,24 @@ export class PokemonCard extends LitElement {
       width: 100%;
       height: auto;
       display: block;
+      opacity: 0;
+      transition: opacity 0.25s ease-out;
+    }
+    img.loaded {
+      opacity: 1;
     }
   `
   render() {
-    return html` <img src=${this.image} alt=${this.name} /> `
+    return html`
+      <img
+        src=${this.image}
+        alt=${this.name}
+        class=${this.imageLoaded ? 'loaded' : ''}
+        loading="lazy"
+        @load=${() => { this.imageLoaded = true }}
+    @error=${() => { this.imageLoaded = true }}
+      />
+    `
   }
 }
 

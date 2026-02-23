@@ -195,4 +195,4 @@ CREATE TABLE deck_cards (
 
 ## Development Notes
 
-AI tools (Claude) were used during development, primarily for boilerplate generation, debugging, and documentation. All architectural decisions, technology choices, and implementation approaches were made independently.
+AI tools were used during development, primarily for boilerplate generation, debugging, and documentation. All architectural decisions, technology choices, and implementation approaches were made independently.

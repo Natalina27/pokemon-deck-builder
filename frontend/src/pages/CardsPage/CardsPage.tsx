@@ -60,7 +60,8 @@ const CardsPage = () => {
     setPage((p) => Math.min(p, totalPages))
   }, [totalPages])
 
-  if (loading) return <div>Loading...</div>
+  const SKELETON_COUNT = 12
+
   if (error) return <p>Error: {error.message}</p>
 
   return (
@@ -71,6 +72,7 @@ const CardsPage = () => {
           className={styles.select}
           value={selectedRarity}
           onChange={e => setSelectedRarity(e.target.value)}
+          disabled={loading}
         >
           <option value="">All rarities</option>
           {rarities.map(r => (
@@ -81,6 +83,7 @@ const CardsPage = () => {
           className={styles.select}
           value={selectedType}
           onChange={e => setSelectedType(e.target.value)}
+          disabled={loading}
         >
           <option value="">All types</option>
           {types.map(t => (
@@ -89,19 +92,27 @@ const CardsPage = () => {
         </select>
       </div>
       <p className={styles.count}>
-        {filteredCards.length} card{filteredCards.length !== 1 ? 's' : ''}
-        {totalPages > 1 && ` · Page ${page} of ${totalPages}`}
+        {loading
+          ? 'Loading…'
+          : `${filteredCards.length} card${filteredCards.length !== 1 ? 's' : ''}${totalPages > 1 ? ` · Page ${page} of ${totalPages}` : ''}`}
       </p>
       <div ref={gridRef} className={styles.grid}>
-        {paginatedCards.map((card) => (
-          <pokemon-card
-            key={card.id}
-            name={card.name}
-            image={`${card.image}/high.webp`}
-            style={{ display: 'block' }}
-            className={styles.card}
-          />
-        ))}
+        {loading
+          ? Array.from({ length: SKELETON_COUNT }, (_, i) => (
+              <div key={i} className={styles.skeleton} aria-hidden />
+            ))
+          : paginatedCards.map((card, index) => (
+              <pokemon-card
+                key={card.id}
+                name={card.name}
+                image={`${card.image}/high.webp`}
+                style={{
+                  display: 'block',
+                  animationDelay: `${index * 0.04}s`,
+                }}
+                className={`${styles.card} ${styles.cardReveal}`}
+              />
+            ))}
       </div>
       {totalPages > 1 && (
         <nav className={styles.pagination} aria-label="Cards pagination">
