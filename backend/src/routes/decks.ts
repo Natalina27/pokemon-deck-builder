@@ -14,25 +14,29 @@ export const deckRoutes = async (fastify: FastifyInstance) => {
         const insertDeck = db.prepare('INSERT INTO decks (name) VALUES (?)')
         const deck = insertDeck.run(name)
 
-        const inserCard = db.prepare(
+        const insertCard = db.prepare(
             'INSERT INTO deck_cards (deck_id, card_id, quantity) VALUES (?, ?, ?)'
         )
         for (const card of cards) {
-            inserCard.run(deck.lastInsertRowid, card.card_id, card.quantity)
+            insertCard.run(deck.lastInsertRowid, card.card_id, card.quantity)
         }
 
         return { id: deck.lastInsertRowid, name }
     })
 
-    fastify.get<{ Params: { id: string } }>('/decks/:id', async (request) => {
+    fastify.get<{ Params: { id: string } }>('/decks/:id', async (request, reply) => {
         const { id } = request.params
+      
+        const deck = db.prepare('SELECT * FROM decks WHERE id = ?').get(id) as Record<string, unknown> | undefined
         
-        const deck = db.prepare('SELECT * FROM decks WHERE id = ?').get(id) as Record<string, unknown> 
-        const cards = db.prepare('SELECT * FROM deck_cards WHERE deck_id = ?').all(id) as Record<string, unknown>[]
-
+        if (!deck) {
+          return reply.status(404).send({ error: 'Deck not found' })
+        }
+      
+        const cards = db.prepare('SELECT * FROM deck_cards WHERE deck_id = ?').all(id)
+      
         return { ...deck, cards }
-
-    })
+      })
 
     fastify.delete<{ Params: { id: string } }>('/decks/:id', async (request) => {
         const { id } = request.params

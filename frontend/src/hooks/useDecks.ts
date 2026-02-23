@@ -22,9 +22,14 @@ export function useDecks() {
     }, [])
 
     const handleDelete = async (id: number) => {
-        await deleteDeck(id)
-        setDecks(decks.filter(deck => deck.id !== id))  
+        try {
+          await deleteDeck(id)
+          setDecks(prev => prev.filter(deck => deck.id !== id))
+        } catch (err) {
+          setError(err instanceof Error ? err : new Error('Failed to delete deck'))
+        } 
     }
+    
     return { decks, loading, error, handleDelete }
 }
 

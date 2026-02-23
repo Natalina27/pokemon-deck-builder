@@ -19,5 +19,5 @@ export interface Deck {
     id: number
     name: string
     createdAt: string
-    cards: CardBrief[]
+    cards?: CardBrief[]
 }

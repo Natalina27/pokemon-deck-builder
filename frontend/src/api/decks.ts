@@ -4,12 +4,31 @@ const BASE_URL = 'http://localhost:3000'
 
 export const getDecks = async (): Promise<Deck[]> => {
     const response = await fetch(`${BASE_URL}/decks`)
-    return  response.json()
+
+    if (!response.ok) throw new Error('Failed to fetch decks')
+
+    const data = await response.json()
+
+    return data.map((deck: { id: number; name: string; created_at: string }) => ({
+      id: deck.id,
+      name: deck.name,
+      createdAt: deck.created_at
+    }))
 }
 
 export const getDeck = async (id: number): Promise<Deck> => {
     const response = await fetch(`${BASE_URL}/decks/${id}`)
-        return  response.json()
+
+    if (!response.ok) throw new Error('Failed to fetch deck')
+
+    const data = await response.json()
+
+    return {
+      id: data.id,
+      name: data.name,
+      createdAt: data.created_at,
+      cards: data.cards
+    }
 }
 
 export const createDeck = async (name: string, cards: { card_id: string; quantity: number }[]): Promise<Deck> => {
@@ -18,11 +37,22 @@ export const createDeck = async (name: string, cards: { card_id: string; quantit
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, cards })
     })
-    return response.json()
+
+    if (!response.ok) throw new Error('Failed to create deck')
+
+    const data = await response.json()
+
+    return {
+      id: data.id,
+      name: data.name,
+      createdAt: data.created_at ?? new Date().toISOString(),
+      cards: []
+    }
 }
 
 export const deleteDeck = async (id: number): Promise<void> => {
-    await fetch(`${BASE_URL}/decks/${id}`, {
+    const response = await fetch(`${BASE_URL}/decks/${id}`, {
       method: 'DELETE'
     })
+    if (!response.ok) throw new Error('Failed to delete deck')
 }
