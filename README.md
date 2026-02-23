@@ -8,9 +8,11 @@ A full-stack web application for browsing Pokemon TCG cards and managing custom 
 
 ## Features
 
-- Browse Pokemon TCG cards from the Base Set
-- Search cards by name
-- Filter cards by rarity and type
+- Browse Pokemon TCG cards from the full TCGdex catalog
+- Search cards by name (client-side)
+- Filter cards by rarity and type (API + client-side)
+- Viewport-based pagination — each page shows as many cards as fit on screen (First / Previous / Next / Last)
+- Cards without images are sorted to the end of the list
 - Create, rename, and delete custom decks
 - Add cards to decks from the deck detail page
 - Persistent storage via SQLite database
@@ -59,7 +61,7 @@ The TCGdex API returns minimal card data in list endpoints (`id`, `name`, `image
 The backend uses snake_case (`created_at`) following SQLite conventions. The frontend API client maps these to camelCase (`createdAt`) at the boundary layer, keeping the rest of the frontend code consistent with JavaScript/TypeScript conventions.
 
 ### Filtering Strategy
-Card filtering by rarity and type is handled via TCGdex API query parameters (`?rarity=Common`, `?types=Fire`). Name filtering is handled client-side on the fetched results. This avoids loading the entire card catalogue on every filter change while keeping name search instant.
+Cards are loaded from the TCGdex `/cards` endpoint (all cards, or with `?rarity=...` and `?types=...` when filters are set). Name search is applied client-side on the current result set. Cards without an image are sorted to the end so they don’t clutter the main list.
 
 ---
 
@@ -186,7 +188,6 @@ CREATE TABLE deck_cards (
 - **No deck size limit** — in a real Pokemon TCG app, decks are limited to 60 cards with max 4 copies of any non-basic-energy card
 - **No remove card from deck** — cards can be added but not removed from a deck in the current version
 - **SQLite in production** — for a multi-user production app, PostgreSQL would be a better choice for concurrency and scalability
-- **No pagination** — the card list loads all cards at once; for larger sets this would need pagination or infinite scroll
 - **Card data not cached** — every DeckDetailPage visit fetches all cards from TCGdex; React Query would improve performance and reduce redundant network requests
 - **No tests** — the project currently has no unit or integration tests; adding them is a future improvement
 

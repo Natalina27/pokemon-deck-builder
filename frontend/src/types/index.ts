@@ -4,6 +4,8 @@ export interface CardBrief {
   image: string
   localId: string
   quantity?: number
+  rarity?: string
+  types?: string[]
 }
 
 export interface Card {
