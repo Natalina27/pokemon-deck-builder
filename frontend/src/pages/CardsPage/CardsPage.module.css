@@ -116,6 +116,27 @@
   border-color: #ffcb05;
 }
 
+.clearFilters {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: transparent;
+  color: #aaa;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.clearFilters:hover:not(:disabled) {
+  border-color: #ffcb05;
+  color: #ffcb05;
+}
+
+.clearFilters:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 600px) {
   .grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));

@@ -90,6 +90,20 @@ const CardsPage = () => {
             <option key={t} value={t}>{t}</option>
           ))}
         </select>
+        {(search || selectedRarity || selectedType) && (
+          <button
+            type="button"
+            className={styles.clearFilters}
+            onClick={() => {
+              setSearch('')
+              setSelectedRarity('')
+              setSelectedType('')
+            }}
+            disabled={loading}
+          >
+            Clear filters
+          </button>
+        )}
       </div>
       <p className={styles.count}>
         {loading
