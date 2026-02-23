@@ -6,7 +6,7 @@ import '../../types/custom-elements-jsx'
 import styles from './CardsPage.module.css'
 
 const CardsPage = () => {
-  const { cards, loading, error } = useCards()
+  const { cards, loading, error, rarities, types, selectedRarity, selectedType, setSelectedRarity, setSelectedType } = useCards()
   const [search, setSearch] = useState('')
 
   const filteredCards = cards.filter((card) =>
@@ -18,7 +18,29 @@ const CardsPage = () => {
 
   return (
     <div className={styles.container}>
-      <SearchBar value={search} onChange={setSearch} />
+      <div className={styles.filters}>
+        <SearchBar value={search} onChange={setSearch} />
+        <select
+          className={styles.select}
+          value={selectedRarity}
+          onChange={e => setSelectedRarity(e.target.value)}
+        >
+          <option value="">All rarities</option>
+          {rarities.map(r => (
+            <option key={r} value={r}>{r}</option>
+          ))}
+        </select>
+        <select
+          className={styles.select}
+          value={selectedType}
+          onChange={e => setSelectedType(e.target.value)}
+        >
+          <option value="">All types</option>
+          {types.map(t => (
+            <option key={t} value={t}>{t}</option>
+          ))}
+        </select>
+      </div>
       <div className={styles.grid}>
         {filteredCards.map((card) => (
           <pokemon-card

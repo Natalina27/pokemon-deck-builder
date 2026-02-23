@@ -1,10 +1,49 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.filters > *:first-child {
+  flex: 1;
+  max-width: 400px;
+}
+
+.select {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1e1e2e;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 160px;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #ffcb05;
+}
 .input {
   width: 100%;
   padding: 10px 16px;
-  margin-bottom: 24px;
-  border: 1px solid #2a2d3e;
+  border: 1px solid #333;
   border-radius: 8px;
-  background-color: #1a1a2e;
+  background: #1e1e2e;
   color: white;
   font-size: 14px;
   outline: none;
@@ -16,4 +55,20 @@
 
 .input::placeholder {
   color: #5a6070;
+}
+
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters > *:first-child {
+    max-width: 100%;
+  }
+
+  .select {
+    min-width: unset;
+    width: 100%;
+  }
 }
