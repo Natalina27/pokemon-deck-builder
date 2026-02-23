@@ -1,19 +1,19 @@
 .input {
-    width: 100%;
-    padding: 10px 16px;
-    margin-bottom: 24px;
-    border: 1px solid #2a2d3e;
-    border-radius: 8px;
-    background-color: #1a1a2e;
-    color: white;
-    font-size: 14px;
-    outline: none;
-  }
-  
-  .input:focus {
-    border-color: #ffcb05;
-  }
-  
-  .input::placeholder {
-    color: #5a6070;
-  }
+  width: 100%;
+  padding: 10px 16px;
+  margin-bottom: 24px;
+  border: 1px solid #2a2d3e;
+  border-radius: 8px;
+  background-color: #1a1a2e;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #ffcb05;
+}
+
+.input::placeholder {
+  color: #5a6070;
+}

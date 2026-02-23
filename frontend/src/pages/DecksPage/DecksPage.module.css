@@ -1,0 +1,56 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.button {
+  background: #ffcb05;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #e6b800;
+}
+
+.deck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #1a1a2e;
+  border: 1px solid #2a2d3e;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.deck button {
+  background: #ffcb05;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.deck button:hover {
+  background: #e6b800;
+}
+
+.error {
+  color: #e84040;
+  font-size: 13px;
+}

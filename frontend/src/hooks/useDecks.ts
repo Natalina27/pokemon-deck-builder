@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getDecks, deleteDeck } from '../api'
+import { getDecks, createDeck, deleteDeck } from '../api'
 import type { Deck } from '../types'
 
 export function useDecks() {
@@ -23,6 +23,14 @@ export function useDecks() {
     fetchDecks()
   }, [])
 
+  const handleCreate = async (name: string) => {
+    if (decks.some((deck) => deck.name.toLowerCase() === name.toLowerCase())) {
+      throw new Error('A deck with this name already exists')
+    }
+    const newDeck = await createDeck(name, [])
+    setDecks((prev) => [...prev, newDeck])
+  }
+
   const handleDelete = async (id: number) => {
     try {
       await deleteDeck(id)
@@ -32,5 +40,5 @@ export function useDecks() {
     }
   }
 
-  return { decks, loading, error, handleDelete }
+  return { decks, loading, error, handleCreate, handleDelete }
 }
