@@ -110,7 +110,7 @@ Clone the repository:
 ```bash
 git clone https://github.com/Natalina27/pokemon-deck-builder.git
 cd pokemon-deck-builder
-cd frontend && npm install
+cd frontend && npm install && cd ..
 cd backend && npm install
 ```
 
@@ -167,11 +167,39 @@ CREATE TABLE deck_cards (
 
 ## Known Limitations & Future Improvements
 
+**Game rules & UX**
 - **No deck size limit** — in a real Pokemon TCG app, decks are limited to 60 cards with max 4 copies of any non-basic-energy card
-- **No remove card from deck** — cards can be added but not removed from a deck in the current version
+- **No remove card from deck** — cards can be added but not removed; UI could show quantity per card and allow increment/decrement/remove
+- **DeckDetailPage** — "Add cards" loads all cards at once; pagination or virtual list would scale better on large catalogs
+
+**Architecture & config**
+- **API base URL** — backend URL is hardcoded (`http://localhost:3000`) in `frontend/src/api/decks.ts`; use `VITE_API_URL` (or similar) so dev/staging/production can point to different backends
 - **SQLite in production** — for a multi-user production app, PostgreSQL would be a better choice for concurrency and scalability
-- **Card data not cached** — every DeckDetailPage visit fetches all cards from TCGdex; React Query would improve performance and reduce redundant network requests
-- **No tests** — the project currently has no unit or integration tests; adding them is a future improvement
+- **Card data not cached** — every DeckDetailPage visit fetches all cards from TCGdex; React Query (or similar) would reduce redundant requests and improve performance
+
+**UI & consistency**
+- **Error and loading states** — CardsPage uses a skeleton; DeckDetailPage uses plain "Loading..." and minimal error text; a shared `ErrorBoundary` and loading component would unify UX
+- **Accessibility** — improve a11y (e.g. skip links, focus management in modals, clearer form labels and live regions for dynamic content)
+
+**Testing**
+- **Backend tests** — no unit or integration tests for Fastify routes and DB; adding them would protect API contracts and schema changes
+- **E2E tests** — critical flows (create deck, add card, rename, delete) could be covered with Playwright or Cypress
+
+
+---
+
+## Testing
+
+The frontend includes unit tests written with **Vitest** and **React Testing Library**.
+
+Run tests (from `/frontend`):
+```bash
+npm run test
+```
+
+Current coverage:
+- `useDecks` hook — load, create, rename, delete, duplicate name validation
+- Decks API client — response mapping, error handling, request payload
 
 ---
 
