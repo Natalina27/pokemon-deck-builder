@@ -102,9 +102,7 @@ Pages in `pages/` keep their files directly in the page folder (e.g. `DecksPage/
 
 ## Getting Started
 
-### Prerequisites
-- Node.js 18+
-- npm
+Requires **Node.js 20+**.
 
 ### Installation
 
@@ -112,33 +110,17 @@ Clone the repository:
 ```bash
 git clone https://github.com/Natalina27/pokemon-deck-builder.git
 cd pokemon-deck-builder
-```
-
-Install frontend dependencies:
-```bash
 cd frontend && npm install
-```
-
-Install backend dependencies:
-```bash
 cd backend && npm install
 ```
 
-### Running the app
+Run the app in **two terminals**:
 
-Start the backend (from `/backend`):
-```bash
-npm run dev
-```
+| Terminal 1 (backend)        | Terminal 2 (frontend)        |
+|-----------------------------|------------------------------|
+| `cd backend && npm run dev` | `cd frontend && npm run dev` |
 
-Start the frontend (from `/frontend`):
-```bash
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-The backend API runs on `http://localhost:3000`.
+Then open **[http://localhost:5173](http://localhost:5173)** in your browser. The API is at `http://localhost:3000`.
 
 ---
 
