@@ -47,7 +47,7 @@ const CardsPage = () => {
   const paginatedCards = filteredCards.slice(start, start + pageSize)
 
   useLayoutEffect(() => {
-    if (loading || error || !gridRef.current) return
+    if (error || !gridRef.current) return
     const update = () => {
       if (!gridRef.current) return
       const rect = gridRef.current.getBoundingClientRect()
@@ -85,7 +85,7 @@ const CardsPage = () => {
     setPage(1)
   }
 
-  const SKELETON_COUNT = 12
+  const skeletonCount = pageSize || 12
 
   if (error) return <p>Error: {error.message}</p>
 
@@ -137,7 +137,7 @@ const CardsPage = () => {
       </p>
       <div ref={gridRef} className={styles.grid}>
         {loading
-          ? Array.from({ length: SKELETON_COUNT }, (_, i) => (
+          ? Array.from({ length: skeletonCount }, (_, i) => (
               <div key={i} className={styles.skeleton} aria-hidden />
             ))
           : paginatedCards.map((card, index) => (
