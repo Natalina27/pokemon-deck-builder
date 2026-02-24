@@ -2,7 +2,10 @@ import type { CardBrief, Card } from '../types'
 
 const BASE_URL = 'https://api.tcgdex.net/v2/en'
 
-export async function getCards(filters?: { rarity?: string; types?: string }): Promise<CardBrief[]> {
+export async function getCards(filters?: {
+  rarity?: string
+  types?: string
+}): Promise<CardBrief[]> {
   const params = new URLSearchParams()
   if (filters?.rarity) params.append('rarity', filters.rarity)
   if (filters?.types) params.append('types', filters.types)

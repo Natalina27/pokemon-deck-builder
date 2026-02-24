@@ -37,8 +37,12 @@ export class PokemonCard extends LitElement {
         alt=${this.name}
         class=${this.imageLoaded ? 'loaded' : ''}
         loading="lazy"
-        @load=${() => { this.imageLoaded = true }}
-    @error=${() => { this.imageLoaded = true }}
+        @load=${() => {
+          this.imageLoaded = true
+        }}
+        @error=${() => {
+          this.imageLoaded = true
+        }}
       />
     `
   }

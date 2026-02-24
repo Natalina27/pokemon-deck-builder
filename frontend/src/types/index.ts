@@ -24,3 +24,15 @@ export interface Deck {
   createdAt: string
   cards?: CardBrief[]
 }
+
+export interface DeckCard {
+  card_id: string
+  quantity: number
+}
+
+export interface RawDeck {
+  id: number
+  name: string
+  createdAt: string
+  cards?: DeckCard[]
+}

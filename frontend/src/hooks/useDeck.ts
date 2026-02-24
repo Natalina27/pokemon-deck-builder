@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getDeck, getCards } from '../api'
-import type { Deck } from '../types'
+import type { Deck, DeckCard } from '../types'
 
 export const useDeck = (id: number) => {
   const [deck, setDeck] = useState<Deck | null>(null)
@@ -10,14 +10,19 @@ export const useDeck = (id: number) => {
   useEffect(() => {
     async function fetchDeck() {
       try {
-        const [deckData, allCards] = await Promise.all([getDeck(id), getCards()])
-        
-        const enrichedCards = deckData.cards?.map((deckCard: any) => {
-          const card = allCards.find(c => c.id === deckCard.card_id)
-          return card ? { ...card, quantity: deckCard.quantity } : null
-        }).filter(Boolean)
+        const [deckData, allCards] = await Promise.all([
+          getDeck(id),
+          getCards(),
+        ])
 
-        setDeck({ ...deckData, cards: enrichedCards as any })
+        const enrichedCards = deckData.cards
+          ?.map((deckCard: DeckCard) => {
+            const card = allCards.find((c) => c.id === deckCard.card_id)
+            return card ? { ...card, quantity: deckCard.quantity } : null
+          })
+          .filter((card): card is NonNullable<typeof card> => card !== null)
+
+        setDeck({ ...deckData, cards: enrichedCards })
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Failed to load deck'))
       } finally {

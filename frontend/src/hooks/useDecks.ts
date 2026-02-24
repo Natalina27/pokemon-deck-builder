@@ -41,11 +41,18 @@ export function useDecks() {
   }
 
   const handleRename = async (id: number, name: string) => {
-    if (decks.some((deck) => deck.name.toLowerCase() === name.toLowerCase() && deck.id !== id)) {
+    if (
+      decks.some(
+        (deck) =>
+          deck.name.toLowerCase() === name.toLowerCase() && deck.id !== id
+      )
+    ) {
       throw new Error('A deck with this name already exists')
     }
     await renameDeck(id, name)
-    setDecks((prev) => prev.map((deck) => deck.id === id ? { ...deck, name } : deck))
+    setDecks((prev) =>
+      prev.map((deck) => (deck.id === id ? { ...deck, name } : deck))
+    )
   }
 
   return { decks, loading, error, handleCreate, handleDelete, handleRename }

@@ -12,7 +12,11 @@ const mockDecks = [
 
 beforeEach(() => {
   vi.mocked(api.getDecks).mockResolvedValue(mockDecks)
-  vi.mocked(api.createDeck).mockResolvedValue({ id: 3, name: 'New Deck', createdAt: '2024-01-03' })
+  vi.mocked(api.createDeck).mockResolvedValue({
+    id: 3,
+    name: 'New Deck',
+    createdAt: '2024-01-03',
+  })
   vi.mocked(api.deleteDeck).mockResolvedValue(undefined)
   vi.mocked(api.renameDeck).mockResolvedValue(undefined)
 })

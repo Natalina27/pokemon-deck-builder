@@ -13,7 +13,10 @@ export function useCards() {
 
   useEffect(() => {
     async function fetchFilters() {
-      const [raritiesData, typesData] = await Promise.all([getRarities(), getTypes()])
+      const [raritiesData, typesData] = await Promise.all([
+        getRarities(),
+        getTypes(),
+      ])
       setRarities(raritiesData)
       setTypes(typesData)
     }
@@ -31,7 +34,9 @@ export function useCards() {
         const data = await getCards(filters)
         setCards(data)
       } catch (error) {
-        setError(error instanceof Error ? error : new Error('Failed to load cards'))
+        setError(
+          error instanceof Error ? error : new Error('Failed to load cards')
+        )
       } finally {
         setLoading(false)
       }
@@ -39,5 +44,15 @@ export function useCards() {
     fetchCards()
   }, [selectedRarity, selectedType])
 
-  return { cards, loading, error, rarities, types, selectedRarity, selectedType, setSelectedRarity, setSelectedType }
+  return {
+    cards,
+    loading,
+    error,
+    rarities,
+    types,
+    selectedRarity,
+    selectedType,
+    setSelectedRarity,
+    setSelectedType,
+  }
 }

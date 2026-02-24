@@ -16,27 +16,27 @@ const DeckDetailPage = () => {
   const handleAddCard = async (cardId: string) => {
     await addCardToDeck(deckId, cardId)
 
-    setDeck(prev => {
+    setDeck((prev) => {
       if (!prev) return prev
-      const existingCard = prev.cards?.find(c => c.id === cardId)
+      const existingCard = prev.cards?.find((c) => c.id === cardId)
       if (existingCard) {
         return {
           ...prev,
-          cards: prev.cards?.map(c =>
+          cards: prev.cards?.map((c) =>
             c.id === cardId ? { ...c, quantity: (c.quantity ?? 1) + 1 } : c
-          )
+          ),
         }
       }
-      const newCard = cards.find(c => c.id === cardId)
+      const newCard = cards.find((c) => c.id === cardId)
       if (!newCard) return prev
       return {
         ...prev,
-        cards: [...(prev.cards ?? []), newCard]
+        cards: [...(prev.cards ?? []), newCard],
       }
     })
   }
 
-  const filteredCards = cards.filter(card =>
+  const filteredCards = cards.filter((card) =>
     card.name.toLowerCase().includes(search.toLowerCase())
   )
 
@@ -51,7 +51,7 @@ const DeckDetailPage = () => {
       <div className={styles.section}>
         <h2>Cards in deck ({deck.cards?.length ?? 0})</h2>
         <div className={styles.deckCards}>
-          {deck.cards?.map(card => (
+          {deck.cards?.map((card) => (
             <pokemon-card
               key={card.id}
               name={card.name}
@@ -66,7 +66,7 @@ const DeckDetailPage = () => {
         <h2>Add cards</h2>
         <SearchBar value={search} onChange={setSearch} />
         <div className={styles.grid}>
-          {filteredCards.map(card => (
+          {filteredCards.map((card) => (
             <div key={card.id} className={styles.cardWrapper}>
               <pokemon-card
                 name={card.name}

@@ -13,8 +13,8 @@ describe('decks API', () => {
     mockFetch.mockResolvedValue({
       ok: true,
       json: async () => [
-        { id: 1, name: 'Test Deck', created_at: '2024-01-01' }
-      ]
+        { id: 1, name: 'Test Deck', created_at: '2024-01-01' },
+      ],
     })
 
     const decks = await getDecks()
@@ -33,7 +33,7 @@ describe('decks API', () => {
   it('createDeck sends correct payload', async () => {
     mockFetch.mockResolvedValue({
       ok: true,
-      json: async () => ({ id: 1, name: 'New Deck', created_at: '2024-01-01' })
+      json: async () => ({ id: 1, name: 'New Deck', created_at: '2024-01-01' }),
     })
 
     await createDeck('New Deck', [])
@@ -42,7 +42,7 @@ describe('decks API', () => {
       expect.stringContaining('/decks'),
       expect.objectContaining({
         method: 'POST',
-        body: JSON.stringify({ name: 'New Deck', cards: [] })
+        body: JSON.stringify({ name: 'New Deck', cards: [] }),
       })
     )
   })
